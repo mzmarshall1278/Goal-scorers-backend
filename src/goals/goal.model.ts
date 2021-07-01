@@ -4,12 +4,12 @@ export interface Goal {
   club: string;
   scorer: string;
   assist: string;
-  timeStamp: string;
+  time: string;
   keeper: string;
-  type: goalType
+  type: GoalType
 }
 
-export enum goalType {
+export enum GoalType {
   REGULAR = `REGULAR`,
   CORNER = `CORNER`,
   FREE = `FREE KICK`,

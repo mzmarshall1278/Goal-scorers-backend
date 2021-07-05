@@ -6,7 +6,8 @@ export interface Goal {
   assist: string;
   time: string;
   keeper: string;
-  type: GoalType
+  against: string;
+  type: GoalType;
 }
 
 export enum GoalType {

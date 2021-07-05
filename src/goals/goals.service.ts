@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Goal, GoalType } from './goal.model';
-import * as uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
+import { AddGoalDto } from './dto/add-goal.dto';
 
 @Injectable()
 export class GoalsService {
@@ -10,10 +11,15 @@ export class GoalsService {
     return this.goals;
   }
 
-  addGoal(club: string, scorer: string, assist: string, time: string, keeper: string, type: GoalType): Goal {
+  getGoalByID(id: string) {
+    return this.goals.find(goal=> goal.id === id)
+  }
+
+  addGoal(addGoalDto: AddGoalDto): Goal {
+    const {scorer, club, assist, time, keeper, against, type} = addGoalDto
     const goal: Goal = {
-      id: uuid(),
-      club, scorer, assist, time, keeper, type
+      id: ''+ Math.random(),
+      club, scorer, assist, time, keeper, type, against
     }
     this.goals.push(goal);
     return goal;

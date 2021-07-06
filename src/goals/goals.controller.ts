@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { Goal, GoalType } from './goal.model';
 import { GoalsService } from './goals.service';
-import { AddGoalDto } from './dto/add-goal.dto';
+import { GoalDto } from './dto/add-goal.dto';
 
 @Controller('goals')
 export class GoalsController {
@@ -12,13 +12,25 @@ export class GoalsController {
     return this.goalService.getAllGoals();
   }
 
+  @Get('/search')
+  getFilteredGoals(@Query('search') search: string) {
+    // console.log(search)
+    return this.goalService.getFilteredGoals(search)
+  }
+
   @Get('/:id')
   getGoalById(@Param('id') id: string): Goal {
     return this.goalService.getGoalByID(id)
   }
     
   @Post()
-  addGoal(@Body() addGoalDto: AddGoalDto): Goal {
+  addGoal(@Body() addGoalDto: GoalDto): Goal {
     return this.goalService.addGoal( addGoalDto);
+  }
+
+  @Delete('/:id')
+  deleteGoal(@Param('id') id:string): object {
+    this.goalService.deleteGoal(id);
+    return {message: "deleted successfully"}
   }
 }

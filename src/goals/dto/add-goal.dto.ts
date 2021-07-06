@@ -1,5 +1,5 @@
 import { GoalType } from '../goal.model';
-export class AddGoalDto{
+export class GoalDto{
   club: string;
   scorer: string;
   assist: string;

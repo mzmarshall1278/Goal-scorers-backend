@@ -28,8 +28,8 @@ export class GoalsService {
     return this.goals.find(goal=> goal.id === id)
   }
 
-  addGoal(addGoalDto: GoalDto): Goal {
-    const { scorer, club, assist, time, keeper, against, type } = addGoalDto;
+  addGoal(addGoalDto: GoalDto, type: GoalType): Goal {
+    const { scorer, club, assist, time, keeper, against } = addGoalDto;
     const goal: Goal = {
       id: ''+ Math.random(),
       club, scorer, assist, time, keeper, type, against

@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Goal, GoalType } from './goal.model';
 import { GoalsService } from './goals.service';
 import { GoalDto } from './dto/add-goal.dto';
+import { GoalTypeValidationPipe } from './pipes/goal-type-validation.pipe';
 
 @Controller('goals')
 export class GoalsController {
@@ -20,12 +21,17 @@ export class GoalsController {
 
   @Get('/:id')
   getGoalById(@Param('id') id: string): Goal {
-    return this.goalService.getGoalByID(id)
+    const found = this.goalService.getGoalByID(id);
+    if (!found) {
+      throw new NotFoundException("This goal could not be found")
+    }
+    return found;
   }
     
   @Post()
-  addGoal(@Body() addGoalDto: GoalDto): Goal {
-    return this.goalService.addGoal( addGoalDto);
+   @UsePipes(ValidationPipe) 
+  addGoal(@Body() addGoalDto: GoalDto, @Body('type', GoalTypeValidationPipe) type: GoalType): Goal {
+    return this.goalService.addGoal( addGoalDto, type);
   }
 
   @Delete('/:id')

@@ -1,6 +1,6 @@
 import {IsIn, IsNotEmpty} from 'class-validator'
 
-import { GoalType } from '../goal.model';
+import { GoalType } from '../goal-type.enum';
 export class GoalDto{
   @IsNotEmpty()
   club: string;

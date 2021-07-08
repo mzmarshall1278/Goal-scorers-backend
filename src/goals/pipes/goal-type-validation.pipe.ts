@@ -1,5 +1,5 @@
 import { BadRequestException, PipeTransform } from "@nestjs/common";
-import { GoalType } from '../goal.model';
+import { GoalType } from '../goal-type.enum';
 
 export class GoalTypeValidationPipe implements PipeTransform {
 

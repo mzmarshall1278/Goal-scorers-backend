@@ -11,6 +11,7 @@ export class GoalTypeValidationPipe implements PipeTransform {
     GoalType.REGULAR
   ]
   transform(value: any) {
+    if (!value) return;
     value = value.toUpperCase()
 
     if (!this.isTypeValid(value)) {
